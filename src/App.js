@@ -3,10 +3,10 @@ import * as React from 'react';
 
 import Dashboard from './components/Dashboard/Dashboard';
 import { Routes, Route } from 'react-router-dom'
-import Temperature from './components/Temperature';
-import Pressure from './components/Pressure';
+import Pressure from './components/IndividualPages/Pressure';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import DashboardMain from './components/Dashboard/DashboardMain';
 
 function App() {
 
@@ -20,9 +20,8 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <div className="App">
         <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='temperature' element={<Temperature />} />
-          <Route path='pressure' element={<Pressure />} />
+          <Route path='/' element={<Dashboard renderPage={<DashboardMain/>}/>} />
+          <Route path='pressure' element={<Dashboard renderPage={<Pressure/>}/>}/>
         </Routes>
       </div>
     </ThemeProvider>

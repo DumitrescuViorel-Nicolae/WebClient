@@ -15,13 +15,18 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Temperature from '../Temperature';
 import { AppBar, DrawerHeader, Main } from './DashboardStyledComponents';
 import { Link } from 'react-router-dom';
 
-export default function PersistentDrawerLeft() {
+export default function Dashboard({ renderPage }) {
 
   const drawerWidth = 240;
+  const currentPath = window.location.pathname.substring(1);
+  const capitalize = currentPath.charAt(0).toUpperCase();
+  const capitalizedPath = capitalize + currentPath.slice(1)
+  const renderedPage = renderPage.type.name.toString();
+  const linkTo = capitalizedPath === renderedPage ? true : false;
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -32,7 +37,6 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -49,12 +53,13 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Remote Interface
-          </Typography>
+          <Link to='/'>
+            <Typography variant="h6" noWrap component="div">
+              Remote Interface
+            </Typography>
+          </Link>
         </Toolbar>
       </AppBar>
-      {/* <----------->*/}
 
       <Drawer
         sx={{
@@ -74,18 +79,28 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-
         <Divider />
 
         <List>
 
-          <Link to='temperature'>
-            <ListItem key={'Temperature'} disablePadding>
+          <Link to={linkTo ? false : 'pressure'}>
+            <ListItem key={'Pressure'} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   <MenuIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Temperature'} />
+                <ListItemText primary={'Pressure'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          
+          <Link to={linkTo ? false : 'pressure'}>
+            <ListItem key={'Pressure'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <MenuIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Pressure'} />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -96,8 +111,7 @@ export default function PersistentDrawerLeft() {
       <Main open={open}>
 
         <DrawerHeader />
-        <Temperature />
-
+        {renderPage}
       </Main>
     </Box>
   );

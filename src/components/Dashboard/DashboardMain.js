@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Card from '@mui/material/Card';
+
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
-import temperature from '../media/temperature.jpg'
-import pressure from '../media/pressure.jpg'
-import humidity from '../media/humidity.jpg'
-import gas from '../media/gas.jpg'
-import altitude from '../media/altitude.jpg'
+import { CardActionArea, CardActions, Grid, Card, LinearProgress, Box } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
-function Temperature() {
+import temperature from '../../media/temperature.jpg'
+import pressure from '../../media/pressure.jpg'
+import humidity from '../../media/humidity.jpg'
+import gas from '../../media/gas.jpg'
+import altitude from '../../media/altitude.jpg'
+
+function DashboardMain() {
   const axiosClient = axios.create({
     baseURL: 'https://localhost:44328/api/Sensors',
   })
 
-  const [readings, setReadings] = useState();
+  const [readings, setReadings] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+
 
   function getReadings() {
-    axiosClient.get('/GetEnvironmentReadings').then(res => setReadings(res.data))
+    axiosClient.get('/GetEnvironmentReadings').then(res => { setReadings(res.data); setLoading(false) });
   }
 
   const getImage = (type) => {
@@ -46,7 +51,7 @@ function Temperature() {
 
   return (
     <>
-      <Grid container spacing={2} columns={4} direction="row" alignItems="center" justifyContent="center">
+      {readings.length > 0 ? <Grid container spacing={2} columns={4} direction="row" alignItems="center" justifyContent="center">
 
         {readings?.map(reading => (
           <Grid item key={reading.type} xs='auto'>
@@ -71,20 +76,18 @@ function Temperature() {
 
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
-                  Refresh
-                </Button>
+                <LoadingButton onClick={() => { getReadings(); setLoading(true); }} loading={loading}>Refresh</LoadingButton>
               </CardActions>
-
             </Card>
           </Grid>
         ))}
-      </Grid>
 
-
+      </Grid> : ( <Card className='py-52 my-52 px-52'>
+          <LinearProgress />
+        </Card>)}
     </>
 
   )
 }
 
-export default Temperature
+export default DashboardMain
