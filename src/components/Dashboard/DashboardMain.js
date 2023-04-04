@@ -4,8 +4,10 @@ import axios from 'axios'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions, Grid, Card, LinearProgress, Box } from '@mui/material';
+import { CardActionArea, CardActions, Grid, Card, LinearProgress } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+
+import './Dashboard.css'
 
 import temperature from '../../media/temperature.jpg'
 import pressure from '../../media/pressure.jpg'
@@ -51,11 +53,11 @@ function DashboardMain() {
 
   return (
     <>
-      {readings.length > 0 ? <Grid container spacing={2} columns={4} direction="row" alignItems="center" justifyContent="center">
+      {readings.length > 0 ? <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center">
 
         {readings?.map(reading => (
           <Grid item key={reading.type} xs='auto'>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card>
               <CardActionArea>
                 <CardMedia
                   sx={{ width: 400, height: 400 }}
@@ -82,7 +84,7 @@ function DashboardMain() {
           </Grid>
         ))}
 
-      </Grid> : ( <Card className='py-52 my-52 px-52'>
+      </Grid> : ( <Card className='py-52 my-52 px-52' id='glass'>
           <LinearProgress />
         </Card>)}
     </>

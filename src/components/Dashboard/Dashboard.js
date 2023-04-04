@@ -16,6 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { AppBar, DrawerHeader, Main } from './DashboardStyledComponents';
+import './Dashboard.css'
 import { Link } from 'react-router-dom';
 
 export default function Dashboard({ renderPage }) {
@@ -43,7 +44,7 @@ export default function Dashboard({ renderPage }) {
 
       {/* HEADER PORTION */}
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar className='glass'>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -93,7 +94,7 @@ export default function Dashboard({ renderPage }) {
               </ListItemButton>
             </ListItem>
           </Link>
-          
+
           <Link to={linkTo ? false : 'pressure'}>
             <ListItem key={'Pressure'} disablePadding>
               <ListItemButton>
