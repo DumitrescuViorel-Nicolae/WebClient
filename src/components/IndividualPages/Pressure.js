@@ -4,10 +4,10 @@ import { DrawerHeader, Main } from '../Dashboard/DashboardStyledComponents'
 
 function Pressure() {
   return (
-    <Main>
-        <DrawerHeader/>
-        <div>Pressure</div>
-    </Main>
+    <div>
+      <DrawerHeader />
+      <div className='my-10'>Pressure</div>
+    </div>
   )
 }
 
