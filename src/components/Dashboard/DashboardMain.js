@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -14,11 +13,10 @@ import pressure from '../../media/pressure.jpg'
 import humidity from '../../media/humidity.jpg'
 import gas from '../../media/gas.jpg'
 import altitude from '../../media/altitude.jpg'
+import axiosClient from '../../shared/axiosClient';
+import {READINGS} from '../../shared/endpoints'
 
 function DashboardMain() {
-  const axiosClient = axios.create({
-    baseURL: 'https://localhost:44328/api/Sensors',
-  })
 
   const [readings, setReadings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -26,7 +24,7 @@ function DashboardMain() {
 
 
   function getReadings() {
-    axiosClient.get('/GetEnvironmentReadings').then(res => { setReadings(res.data); setLoading(false) });
+    axiosClient.get(READINGS).then(res => { setReadings(res.data); setLoading(false) });
   }
 
   const getImage = (type) => {

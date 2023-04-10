@@ -1,14 +1,14 @@
 import React from 'react'
 import { DrawerHeader, Main } from '../Dashboard/DashboardStyledComponents'
 
-
-function Pressure() {
+function Temperature() {
   return (
     <Main>
         <DrawerHeader/>
-        <div>Pressure</div>
+        <div>Temperature</div>
     </Main>
+
   )
 }
 
-export default Pressure
+export default Temperature

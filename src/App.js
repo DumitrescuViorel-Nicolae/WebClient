@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom'
 import Pressure from './components/IndividualPages/Pressure';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Temperature from './components/IndividualPages/Temperature';
 import DashboardMain from './components/Dashboard/DashboardMain';
 
 function App() {
@@ -19,9 +20,11 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
+        <Dashboard/>
         <Routes>
-          <Route path='/' element={<Dashboard renderPage={<DashboardMain/>}/>} />
-          <Route path='pressure' element={<Dashboard renderPage={<Pressure/>}/>}/>
+          <Route path='/' element={<DashboardMain/>} />
+          <Route path='temperature' element={<Temperature/>}/>
+          <Route path='pressure' element={<Pressure/>}/>
         </Routes>
       </div>
     </ThemeProvider>
