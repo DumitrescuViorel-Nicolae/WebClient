@@ -2,7 +2,7 @@ import './App.css';
 import * as React from 'react';
 
 import Dashboard from './components/Dashboard/Dashboard';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Router } from 'react-router-dom'
 import Pressure from './components/IndividualPages/Pressure';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -20,12 +20,13 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
-        <Dashboard/>
-        <Routes>
-          <Route path='/' element={<DashboardMain/>} />
-          <Route path='temperature' element={<Temperature/>}/>
-          <Route path='pressure' element={<Pressure/>}/>
-        </Routes>
+          <Dashboard />
+          <Routes>
+            <Route path='/' element={<DashboardMain />} />
+            <Route path='temperature' element={<Temperature />} />
+            <Route path='pressure' element={<Pressure />} />
+          </Routes>
+
       </div>
     </ThemeProvider>
   );
