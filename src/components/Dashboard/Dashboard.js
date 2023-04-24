@@ -13,16 +13,17 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import CompressIcon from '@mui/icons-material/Compress';
 
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import { AppBar, DrawerHeader, Main } from './DashboardStyledComponents';
+import { AppBar, DrawerHeader } from './DashboardStyledComponents';
 import './Dashboard.css'
 import { Link } from 'react-router-dom';
-import DashboardMain from './DashboardMain';
 
 export default function Dashboard() {
 
@@ -90,7 +91,7 @@ export default function Dashboard() {
             <ListItem key={'Temperature'} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <MenuIcon />
+                  <ThermostatIcon />
                 </ListItemIcon>
                 <ListItemText primary={'Temperature'} />
               </ListItemButton>
@@ -101,7 +102,7 @@ export default function Dashboard() {
               <ListItem key={'Pressure'} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <MenuIcon />
+                    <CompressIcon />
                   </ListItemIcon>
                   <ListItemText primary={'Pressure'} />
                 </ListItemButton>

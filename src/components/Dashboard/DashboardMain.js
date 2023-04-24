@@ -14,7 +14,7 @@ import humidity from '../../media/humidity.jpg'
 import gas from '../../media/gas.jpg'
 import altitude from '../../media/altitude.jpg'
 import axiosClient from '../../shared/axiosClient';
-import {READINGS} from '../../shared/endpoints'
+import { READINGS } from '../../shared/endpoints'
 
 function DashboardMain() {
 
@@ -24,8 +24,23 @@ function DashboardMain() {
 
 
   function getReadings() {
-    axiosClient.get(READINGS).then(res => { setReadings(res.data); setLoading(false) });
+    axiosClient.get(READINGS).then(res => {
+      setReadings(res.data); setLoading(false);
+    });
   }
+
+  useEffect(() => {
+
+    const readingsExisting = JSON.parse(localStorage.getItem("readings") || "[]");
+
+    if (readingsExisting.length === 0) {
+      localStorage.setItem("readings", JSON.stringify(readings))
+    } else {
+      readingsExisting.push(...readings);
+      localStorage.setItem("readings", JSON.stringify(readingsExisting))
+    }
+  }, [loading])
+
 
   const getImage = (type) => {
     switch (type) {
@@ -50,12 +65,12 @@ function DashboardMain() {
   }, [])
 
   return (
-    <>
-      {readings.length > 0 ? <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center">
+    <div className='my-20'>
+      {readings.length > 0 ? <Grid className='my-20' container spacing={2} direction="row" alignItems="center" justifyContent="center">
 
         {readings?.map(reading => (
           <Grid item key={reading.type} xs='auto'>
-            <Card>
+            <Card sx={{ borderRadius: '16px' }}>
               <CardActionArea>
                 <CardMedia
                   sx={{ width: 400, height: 400 }}
@@ -82,10 +97,10 @@ function DashboardMain() {
           </Grid>
         ))}
 
-      </Grid> : ( <Card className='py-52 my-52 px-52' id='glass'>
-          <LinearProgress />
-        </Card>)}
-    </>
+      </Grid> : (<Card className='py-52 my-52 px-52' id='glass'>
+        <LinearProgress />
+      </Card>)}
+    </div>
 
   )
 }
