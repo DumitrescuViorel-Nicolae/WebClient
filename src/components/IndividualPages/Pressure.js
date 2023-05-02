@@ -3,6 +3,7 @@ import { DrawerHeader } from '../Dashboard/DashboardStyledComponents'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import { DBREADINGS } from '../../shared/endpoints';
 import axiosClient from '../../shared/axiosClient';
+import Buttons from '../../shared/SharedComponents/Buttons';
 
 
 function Pressure() {
@@ -20,7 +21,6 @@ function Pressure() {
   }, [])
 
   const pressure = tableData.filter(item => item.type === 'pressure');
-  console.log(pressure)
   return (
     <div>
       <DrawerHeader />
@@ -46,6 +46,8 @@ function Pressure() {
             <Line type="monotone" dataKey='value' stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
       </div>
+
+      <Buttons setFunction={setTableData}/>
     </div>
   )
 }

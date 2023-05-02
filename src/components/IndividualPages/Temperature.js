@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { DrawerHeader } from '../Dashboard/DashboardStyledComponents'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { Button } from '@mui/material';
-import { deleteEntries, generateNew, getReadings } from '../../shared/sharedFunctions';
+import {getReadings } from '../../shared/sharedFunctions';
+import Buttons from '../../shared/SharedComponents/Buttons';
 
 function Temperature() {
 
@@ -41,11 +41,7 @@ function Temperature() {
         </LineChart>
       </div>
 
-      <div className='my-10 flex justify-around'>
-        <Button variant='outlined' onClick={getReadings}>GET READINGS</Button>
-        <Button variant='outlined' onClick={() => generateNew(setTableData)}>GENERATE NEW</Button>
-        <Button variant='outlined' onClick={() => deleteEntries(setTableData)}>RESET TABLE</Button>
-      </div>
+     <Buttons setFunction={setTableData}/>
     </>
 
 
