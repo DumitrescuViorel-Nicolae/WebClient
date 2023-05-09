@@ -13,6 +13,8 @@ import pressure from '../../media/pressure.jpg'
 import humidity from '../../media/humidity.jpg'
 import gas from '../../media/gas.jpg'
 import altitude from '../../media/altitude.jpg'
+import iaq from '../../media/iaq.jpg'
+
 import axiosClient from '../../shared/axiosClient';
 import { READINGS } from '../../shared/endpoints'
 
@@ -54,6 +56,8 @@ function DashboardMain() {
         return gas;
       case 'altitude':
         return altitude;
+      case 'iaq':
+        return iaq;
       default:
         break;
     }
@@ -73,7 +77,7 @@ function DashboardMain() {
             <Card sx={{ borderRadius: '16px' }}>
               <CardActionArea>
                 <CardMedia
-                  sx={{ width: 400, height: 400 }}
+                  sx={{ width: 300, height: 300 }}
                   component="img"
                   height="140"
                   image={getImage(reading.type)}

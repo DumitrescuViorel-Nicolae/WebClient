@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { DrawerHeader } from '../Dashboard/DashboardStyledComponents'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import {getReadings } from '../../shared/sharedFunctions';
+import { callDbInterogation, generateNew, getReadings } from '../../shared/sharedFunctions';
 import Buttons from '../../shared/SharedComponents/Buttons';
+import { Button, Input } from '@mui/material';
+import axiosClient from '../../shared/axiosClient';
+import { TUNNELS } from '../../shared/endpoints';
+import axios from 'axios';
 
 function Temperature() {
 
 
   const [tableData, setTableData] = useState([]);
+  //const [newData, setNewData] = useState([])
+  const [position, setPosition] = useState();
 
   useEffect(() => {
     getReadings(setTableData);
   }, [])
-  
+
+
   const temperature = tableData.filter(item => item.type === 'temperature');
+
+  const acitonateButton = async () => {
+    // const ngrokSession = await axiosClient.get(TUNNELS);
+    // const link = ngrokSession.data.tunnels[0].public_url.replace("tcp", "http");
+   
+    await axios.post(`http://192.168.1.154/servo?position=${position}`);
+  }
+
 
   return (
     <>
@@ -41,7 +56,10 @@ function Temperature() {
         </LineChart>
       </div>
 
-     <Buttons setFunction={setTableData}/>
+      <Buttons setFunction={setTableData} />
+      <Input onChange={(e) => setPosition(e.target.value)} />
+      <Button variant='outlined' onClick={acitonateButton}>Trigger Servo</Button>
+
     </>
 
 
