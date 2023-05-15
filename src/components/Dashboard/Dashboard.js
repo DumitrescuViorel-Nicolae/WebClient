@@ -16,14 +16,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import CompressIcon from '@mui/icons-material/Compress';
 
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 
 import { AppBar, DrawerHeader } from './DashboardStyledComponents';
 import './Dashboard.css'
 import { Link } from 'react-router-dom';
+import Navigation from './Navigation';
 
 export default function Dashboard() {
 
@@ -87,27 +84,15 @@ export default function Dashboard() {
 
         <List>
 
-          <Link to={'temperature'}>
-            <ListItem key={'Temperature'} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <ThermostatIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Temperature'} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-
-            <Link to={'pressure'}>
-              <ListItem key={'Pressure'} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <CompressIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={'Pressure'} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
+          <Navigation dependencyObj = {{type:'Temperature', closeMethod: handleDrawerClose, 
+            icon: <ThermostatIcon/>, toUrl: 'temperature'}}
+          />
+          <Navigation dependencyObj = {{type:'Pressure', closeMethod: handleDrawerClose, 
+            icon: <CompressIcon/>, toUrl: 'pressure'}}
+          />
+          <Navigation dependencyObj = {{type:'Temperature', closeMethod: handleDrawerClose, 
+            icon: <ThermostatIcon/>, toUrl: 'temperature'}}
+          />
 
         </List>
       </Drawer>

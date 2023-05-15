@@ -1,4 +1,3 @@
-import './App.css';
 import * as React from 'react';
 
 import Dashboard from './components/Dashboard/Dashboard';

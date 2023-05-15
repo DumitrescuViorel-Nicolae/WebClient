@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions, Grid, Card, LinearProgress } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { CardActionArea, Grid, Card, LinearProgress } from '@mui/material';
 
 import './Dashboard.css'
 
@@ -14,15 +13,17 @@ import humidity from '../../media/humidity.jpg'
 import gas from '../../media/gas.jpg'
 import altitude from '../../media/altitude.jpg'
 import iaq from '../../media/iaq.jpg'
+import dashboard from '../../media/dashboard.jpg'
+
 
 import axiosClient from '../../shared/axiosClient';
 import { READINGS } from '../../shared/endpoints'
+import DashboardCards from './DashboardCards';
 
 function DashboardMain() {
 
-  const [readings, setReadings] = useState([]);
+  const [readings, setReadings] = useState(null);
   const [loading, setLoading] = useState(false);
-
 
 
   function getReadings() {
@@ -31,17 +32,9 @@ function DashboardMain() {
     });
   }
 
-  useEffect(() => {
 
-    const readingsExisting = JSON.parse(localStorage.getItem("readings") || "[]");
-
-    if (readingsExisting.length === 0) {
-      localStorage.setItem("readings", JSON.stringify(readings))
-    } else {
-      readingsExisting.push(...readings);
-      localStorage.setItem("readings", JSON.stringify(readingsExisting))
-    }
-  }, [loading])
+  const first3Readings = readings?.slice(0, 3);
+  const restOfReadings = readings?.slice(3, readings.length);
 
 
   const getImage = (type) => {
@@ -69,41 +62,55 @@ function DashboardMain() {
   }, [])
 
   return (
+
     <div className='my-20'>
-      {readings.length > 0 ? <Grid className='my-20' container spacing={2} direction="row" alignItems="center" justifyContent="center">
+      <Card className='mx-20 my-10' sx={{ borderRadius: '20px' }}>
+        <CardActionArea>
+          <CardMedia style={{ width: '100%', position: 'relative' }} sx={{ height: 450 }} image={dashboard} />
+          <CardContent style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+            <Typography style={{fontFamily:"Google Sans", color: "#e4e6eb", letterSpacing:'0.3rem'}} variant="h2" fontWeight="bold">
+              Monitoring Dashboard
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
 
-        {readings?.map(reading => (
-          <Grid item key={reading.type} xs='auto'>
-            <Card sx={{ borderRadius: '16px' }}>
-              <CardActionArea>
-                <CardMedia
-                  sx={{ width: 300, height: 300 }}
-                  component="img"
-                  height="140"
-                  image={getImage(reading.type)}
-                  alt={reading.type}
-                />
-                <CardContent>
-                  <Typography className='capitalize' gutterBottom variant="h5" component="div">
-                    {reading.type}
-                  </Typography>
 
-                  <Typography variant="h5" color="text.secondary" fontWeight={600}>
-                    {reading.value} {reading.unit}
-                  </Typography>
-                </CardContent>
+      {readings !== null ? (
 
-              </CardActionArea>
-              <CardActions>
-                <LoadingButton onClick={() => { getReadings(); setLoading(true); }} loading={loading}>Refresh</LoadingButton>
-              </CardActions>
-            </Card>
+        <Grid className='my-20' container spacing={5} direction="row" alignItems="center" justifyContent="center">
+
+          <Grid item xs={12}>
+            <Typography style={{fontFamily:"Google Sans", color: "#e4e6eb", letterSpacing:'0.1rem'}}
+              marginLeft='20rem' marginBottom='0' textAlign={'left'} variant='h4' gutterBottom>
+              Air parameters
+            </Typography>
           </Grid>
-        ))}
 
-      </Grid> : (<Card className='py-52 my-52 px-52' id='glass'>
-        <LinearProgress />
-      </Card>)}
+        
+          {first3Readings?.map((reading) =>
+            <DashboardCards key={reading.type} props={{ reading }}
+              dependencyObj={{ getImage: getImage, getReadings: getReadings, setLoading: setLoading, loading: loading }}
+            />
+          )}
+
+          <Grid item xs={12}>
+          <Typography marginTop='5rem' style={{fontFamily:"Google Sans", color: "#e4e6eb", letterSpacing:'0.1rem'}}
+              marginLeft='20rem' marginBottom='0' textAlign={'left'} variant='h4' gutterBottom>
+              Air quality
+            </Typography>
+          </Grid>
+
+          {restOfReadings?.map((reading) =>
+            <DashboardCards key={reading.type} props={{ reading }}
+              dependencyObj={{ getImage: getImage, getReadings: getReadings, setLoading: setLoading, loading: loading }}
+            />
+          )}
+
+
+        </Grid>) : (<Card className='py-52 my-52 px-52' id='glass'>
+          <LinearProgress />
+        </Card>)}
     </div>
 
   )
