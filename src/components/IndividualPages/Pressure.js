@@ -24,9 +24,10 @@ function Pressure() {
   return (
     <div>
       <DrawerHeader />
-      <div className='my-10'>Pressure</div>
+     
 
-      <div className='flex justify-center'>
+      <div className='flex flex-col items-center'>
+      <div className='my-10'>Pressure</div>
           <LineChart
             width={1000}
             height={700}

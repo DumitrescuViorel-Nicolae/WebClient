@@ -15,6 +15,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import CompressIcon from '@mui/icons-material/Compress';
+import { GoogleLogin } from '@react-oauth/google';
 
 
 import { AppBar, DrawerHeader } from './DashboardStyledComponents';
@@ -59,6 +60,9 @@ export default function Dashboard() {
               Remote Interface
             </Typography>
           </Link>
+          <Box sx={{marginLeft:'auto'}}>
+            <GoogleLogin onSuccess={(response) => { console.log(response) }} />
+          </Box>
         </Toolbar>
       </AppBar>
 
@@ -84,14 +88,20 @@ export default function Dashboard() {
 
         <List>
 
-          <Navigation dependencyObj = {{type:'Temperature', closeMethod: handleDrawerClose, 
-            icon: <ThermostatIcon/>, toUrl: 'temperature'}}
+          <Navigation dependencyObj={{
+            type: 'Temperature', closeMethod: handleDrawerClose,
+            icon: <ThermostatIcon />, toUrl: 'temperature'
+          }}
           />
-          <Navigation dependencyObj = {{type:'Pressure', closeMethod: handleDrawerClose, 
-            icon: <CompressIcon/>, toUrl: 'pressure'}}
+          <Navigation dependencyObj={{
+            type: 'Pressure', closeMethod: handleDrawerClose,
+            icon: <CompressIcon />, toUrl: 'pressure'
+          }}
           />
-          <Navigation dependencyObj = {{type:'Temperature', closeMethod: handleDrawerClose, 
-            icon: <ThermostatIcon/>, toUrl: 'temperature'}}
+          <Navigation dependencyObj={{
+            type: 'Temperature', closeMethod: handleDrawerClose,
+            icon: <ThermostatIcon />, toUrl: 'temperature'
+          }}
           />
 
         </List>

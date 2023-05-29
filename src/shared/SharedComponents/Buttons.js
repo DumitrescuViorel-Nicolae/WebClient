@@ -8,6 +8,7 @@ const Buttons = ({ setFunction }) => {
             <Button variant='outlined' onClick={getReadings}>GET READINGS</Button>
             <Button variant='outlined' onClick={() => generateNew(setFunction)}>GENERATE NEW</Button>
             <Button variant='outlined' onClick={() => deleteEntries(setFunction)}>RESET TABLE</Button>
+            
         </div>
     )
 }

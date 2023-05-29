@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { DrawerHeader } from '../Dashboard/DashboardStyledComponents'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { callDbInterogation, generateNew, getReadings } from '../../shared/sharedFunctions';
+import { getReadings } from '../../shared/sharedFunctions';
 import Buttons from '../../shared/SharedComponents/Buttons';
 import { Button, Input } from '@mui/material';
-import axiosClient from '../../shared/axiosClient';
-import { TUNNELS } from '../../shared/endpoints';
 import axios from 'axios';
 
 function Temperature() {
 
 
   const [tableData, setTableData] = useState([]);
-  //const [newData, setNewData] = useState([])
   const [position, setPosition] = useState();
 
   useEffect(() => {
@@ -23,19 +20,16 @@ function Temperature() {
   const temperature = tableData.filter(item => item.type === 'temperature');
 
   const acitonateButton = async () => {
-    // const ngrokSession = await axiosClient.get(TUNNELS);
-    // const link = ngrokSession.data.tunnels[0].public_url.replace("tcp", "http");
-   
     await axios.post(`http://192.168.1.154/servo?position=${position}`);
-  }
+  } //remove to use the API instead
 
 
   return (
     <>
       <DrawerHeader />
-      <div className='my-5'>Temperature</div>
 
-      <div className='flex justify-center'>
+      <div className='flex flex-col items-center'>
+        <div className='my-5'>Temperature</div>
         <LineChart
           width={1000}
           height={700}
@@ -56,13 +50,12 @@ function Temperature() {
         </LineChart>
       </div>
 
-      <Buttons setFunction={setTableData} />
-      <Input onChange={(e) => setPosition(e.target.value)} />
-      <Button variant='outlined' onClick={acitonateButton}>Trigger Servo</Button>
-
+      <div className='flex justify-center'>
+        <Buttons setFunction={setTableData} />
+        <Input onChange={(e) => setPosition(e.target.value)} />
+        <Button variant='outlined' onClick={acitonateButton}>Trigger Servo</Button>
+      </div>
     </>
-
-
   )
 }
 

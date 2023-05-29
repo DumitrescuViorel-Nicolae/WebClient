@@ -75,7 +75,6 @@ function DashboardMain() {
         </CardActionArea>
       </Card>
 
-
       {readings !== null ? (
 
         <Grid className='my-20' container spacing={5} direction="row" alignItems="center" justifyContent="center">
