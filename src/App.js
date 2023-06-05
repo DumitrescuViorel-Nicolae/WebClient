@@ -8,6 +8,7 @@ import Temperature from './components/IndividualPages/Temperature';
 import DashboardMain from './components/Dashboard/DashboardMain';
 import AirQuality from './components/IndividualPages/AirQuality';
 import AirParameters from './components/IndividualPages/AirParameters';
+import Reports from './components/IndividualPages/Reports';
 
 function App() {
 
@@ -25,7 +26,8 @@ function App() {
             <Route path='/' element={<DashboardMain />} />
             <Route path='temperature' element={<Temperature />} />
             <Route path='airQuality' element={<AirQuality/>}/>
-            <Route path='pressure' element={<AirParameters/>} />
+            <Route path='parameters' element={<AirParameters/>} />
+            <Route path='reports' element={<Reports/>} />
           </Routes>
 
       </div>

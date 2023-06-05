@@ -17,6 +17,7 @@ import ThermostatIcon from '@mui/icons-material/Thermostat';
 import AirIcon from '@mui/icons-material/Air';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import GoogleIcon from '@mui/icons-material/Google';
+import FlagIcon from '@mui/icons-material/Flag';
 import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
@@ -147,7 +148,12 @@ export default function Dashboard() {
           />
           <Navigation dependencyObj={{
             type: 'Air parameters', closeMethod: handleDrawerClose,
-            icon: <CalendarViewMonthIcon />, toUrl: 'pressure'
+            icon: <CalendarViewMonthIcon />, toUrl: 'parameters'
+          }}
+          />
+          <Navigation dependencyObj={{
+            type: 'Reports', closeMethod: handleDrawerClose,
+            icon: <FlagIcon />, toUrl: 'reports'
           }}
           />
 

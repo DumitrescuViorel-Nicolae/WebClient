@@ -19,6 +19,7 @@ import dashboard from '../../media/dashboard.jpg'
 import axiosClient from '../../shared/axiosClient';
 import { READINGS } from '../../shared/endpoints'
 import DashboardCards from './DashboardCards';
+import { Box } from '@mui/system';
 
 function DashboardMain() {
 
@@ -107,9 +108,16 @@ function DashboardMain() {
           )}
 
 
-        </Grid>) : (<Card className='py-52 my-52 px-52' id='glass'>
-          <LinearProgress />
-        </Card>)}
+        </Grid>) : (
+        <Box height={'50vh'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                    <Card>
+                        <div className='w-80 m-4'>Loading...</div>
+                        <CardContent >
+                            <LinearProgress />
+                        </CardContent>
+                    </Card>
+                </Box>
+        )}
     </div>
 
   )

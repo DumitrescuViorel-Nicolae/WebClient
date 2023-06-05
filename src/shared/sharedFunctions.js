@@ -17,10 +17,6 @@ export function getReadings(setFunction) {
 
   export async function deleteEntries(setFunction) {
     await axiosClient.delete(DELETE_ENTRIES).then(
-      Array(2).fill(0).forEach(() => generateNew(setFunction))
+      Array(1).fill(0).forEach(() => generateNew(setFunction))
     );
   };
-
-  // export function callDbInterogation(setFunction){
-  //   setInterval(() => {getReadings(setFunction)}, 10000)
-  // }
