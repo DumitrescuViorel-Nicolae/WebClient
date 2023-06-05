@@ -3,10 +3,11 @@ import { DrawerHeader } from '../Dashboard/DashboardStyledComponents'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { getReadings } from '../../shared/sharedFunctions';
 import Buttons from '../../shared/SharedComponents/Buttons';
-import { Button, Card, FormControl, Grid, Input } from '@mui/material';
+import { Button, Checkbox, FormControl, FormControlLabel, Grid, Input } from '@mui/material';
 import axios from 'axios';
 import { Box } from '@mui/system';
 import WeatherComponent from './WeatherComponent';
+import { CONTROL_SERVO } from '../../shared/endpoints';
 
 function Temperature() {
 
@@ -22,9 +23,8 @@ function Temperature() {
   const temperature = tableData.filter(item => item.type === 'temperature');
 
   const acitonateButton = async () => {
-    await axios.post(`http://192.168.1.154/servo?position=${position}`);
-  } //remove to use the API instead
-
+    await axios.post(`${CONTROL_SERVO}?position=${position}`);
+  }
 
   return (
     <>
@@ -39,7 +39,7 @@ function Temperature() {
               height={700}
               data={temperature}
               margin={{
-                top: 5,
+                top: 10,
                 right: 10,
                 left: 10,
                 bottom: 5,
@@ -63,17 +63,15 @@ function Temperature() {
               <WeatherComponent />
             </Box>
           </Grid>
-          
 
-          <Grid style={{width:'60%'}} item xs={12} sm={12} md={12} lg={10}>
+          <Grid style={{ width: '60%' }} item xs={12} sm={12} md={12} lg={10}>
             <Buttons setFunction={setTableData} />
           </Grid>
-
-
 
           <Grid item xs={12} sm={12} md={12} lg={10}>
             <Grid container justifyContent='center' marginBottom='3rem'>
               <FormControl>
+                <FormControlLabel control={<Checkbox />} label="Automatic trigger" />
                 <Input placeholder='Enter degrees' className='my-1'
                   onChange={(e) => setPosition(e.target.value)} />
                 <Button variant='outlined' onClick={acitonateButton}>Trigger Servo</Button>
@@ -84,7 +82,6 @@ function Temperature() {
         </Grid>
 
       </Grid>
-
 
     </>
   )

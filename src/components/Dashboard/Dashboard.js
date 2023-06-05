@@ -14,7 +14,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
-import CompressIcon from '@mui/icons-material/Compress';
+import AirIcon from '@mui/icons-material/Air';
+import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import GoogleIcon from '@mui/icons-material/Google';
 import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -91,7 +92,7 @@ export default function Dashboard() {
                 style={{ background: '#FFFFFF', textTransform: 'none', color: '#000000', fontSize: '12px' }}>
 
                 <Box sx={{ margin: '0px' }}>
-                  <img style={{ width: '30px', borderRadius: '20px' }} src={userProfile.picture} />
+                  <img style={{ width: '30px', borderRadius: '20px' }} alt='profile' src={userProfile.picture} />
                 </Box>
                 Logged in as <br /> {userProfile.name}
 
@@ -141,12 +142,12 @@ export default function Dashboard() {
           />
           <Navigation dependencyObj={{
             type: 'Air Quality', closeMethod: handleDrawerClose,
-            icon: <ThermostatIcon />, toUrl: 'temperature'
+            icon: <AirIcon />, toUrl: 'airQuality'
           }}
           />
           <Navigation dependencyObj={{
             type: 'Air parameters', closeMethod: handleDrawerClose,
-            icon: <CompressIcon />, toUrl: 'pressure'
+            icon: <CalendarViewMonthIcon />, toUrl: 'pressure'
           }}
           />
 

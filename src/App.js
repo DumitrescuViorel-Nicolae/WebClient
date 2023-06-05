@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import Dashboard from './components/Dashboard/Dashboard';
-import { Routes, Route, Router } from 'react-router-dom'
-import Pressure from './components/IndividualPages/Pressure';
+import { Routes, Route } from 'react-router-dom'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Temperature from './components/IndividualPages/Temperature';
 import DashboardMain from './components/Dashboard/DashboardMain';
+import AirQuality from './components/IndividualPages/AirQuality';
+import AirParameters from './components/IndividualPages/AirParameters';
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
           <Routes>
             <Route path='/' element={<DashboardMain />} />
             <Route path='temperature' element={<Temperature />} />
-            <Route path='pressure' element={<Pressure />} />
+            <Route path='airQuality' element={<AirQuality/>}/>
+            <Route path='pressure' element={<AirParameters/>} />
           </Routes>
 
       </div>

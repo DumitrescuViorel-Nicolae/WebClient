@@ -1,60 +1,35 @@
 import { Card, CardContent, Typography } from '@mui/material'
 import axios from 'axios';
-import React, { useEffect, useMemo, useState } from 'react'
-import { WEATHER_URL } from '../../shared/endpoints';
+import React, { useEffect, useState } from 'react'
+import { GEOLOCATION_API, WEATHER_URL } from '../../shared/endpoints';
 
 const WeatherComponent = () => {
 
 
     const [temperature, setTemperature] = useState(null);
     const [geolocationObject, setGeolocationObject] = useState({
-        latitude:  null,
-        longitude: null
+        city: 'Bucharest',
+        latitude: 44.43655014038086,
+        longitude: 26.099349975585938
     })
-      
-    //   function successCallback(position) {
-    //     // setGeolocationObject({
-    //     //     latitude: position.coords.latitude,
-    //     //     longitude: position.coords.longitude
-    //     // })
-    //   }
-      
-    //   function errorCallback(error) {
-    //     console.log('Error retrieving geolocation:', error.message);
-    //   }     
-      
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-      } else {
-        console.log('Geolocation is not supported by this browser.');
-      }
-      
-      function successCallback(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-      
-        // Use the latitude and longitude values as needed
-        console.log(navigator.geolocation.getCurrentPosition(successCallback))
-      }
-      
-      function errorCallback(error) {
-        console.log('Error retrieving geolocation:', error.message);
-      }
-      
-
-    // useMemo(() => {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    //         console.log(navigator)
-    //       } else {
-    //         console.log('Geolocation is not supported by this browser.');
-    //       }
-    // },[geolocationObject])
 
     useEffect(() => {
 
-       
+        const response = async () => {
+            try {
+
+                const response = await axios.get(`${GEOLOCATION_API}?access_key=e6964f25333cf59e11d6ed6534cfbff6//`);
+                const { latitude, longitude, city } = response.data;
+                if (response.success) {
+                    setGeolocationObject({ latitude: latitude, longitude: longitude, city: city });
+                }
+            } catch (error) {
+                console.log('Error fetching location', error)
+            }
+
+        };
+
+        response();
 
         const fetchWeatherData = async () => {
             try {
@@ -67,15 +42,21 @@ const WeatherComponent = () => {
         };
 
         fetchWeatherData();
+        //eslint-disable-next-line
     }, [])
 
+
+    // to add a component to return icons for weather
+    // to add a component of predictions
 
     return (
         <Card className='flex justify-center'>
             <CardContent>
-                <p>Current temperature in Bucharest</p>
-                <Typography textAlign='center'>
+                <Typography variant='h4' textAlign='center'>
                     {temperature}°C
+                </Typography>
+                <Typography variant="h6" color="text.secondary" component="div">
+                    Reference temperature in {geolocationObject.city}
                 </Typography>
             </CardContent>
         </Card>
