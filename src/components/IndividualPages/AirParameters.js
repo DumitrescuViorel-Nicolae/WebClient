@@ -16,16 +16,16 @@ const AirParameters = () => {
 
     const groupedData = data.reduce((acc, entry) => {
         const { type } = entry;
+        const {unit} = entry;
         const group = acc.find((group) => group.type === type);
         if (group) {
             group.values.push({ value: entry.value, time: entry.time });
         } else {
-            acc.push({ type, values: [{ value: entry.value, time: entry.time }] });
+            acc.push({ type, unit, values: [{ value: entry.value, time: entry.time }] });
         }
         return acc;
     }, []);
 
-    console.log(data.length)
     const checkForData = () => {
         if (data.length === 0) {
             return (
@@ -44,7 +44,7 @@ const AirParameters = () => {
                     {groupedData.map(item =>
                         <Grid key={item.type} item md={6} lg={4}>
                             <Typography align='center'>
-                                {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                                {item.type.charAt(0).toUpperCase() + item.type.slice(1)+` [${item.unit}]`}
                             </Typography>
                             <LineChart
                                 style={{ margin: '0 auto' }}
@@ -59,7 +59,7 @@ const AirParameters = () => {
                                     bottom: 30,
                                 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis label={{ value: 'Time', dy: 20, position: 'left' }}
+                                <XAxis label={{ value: 'Time [hh:mm:ss]', dy: 20, dx: 60, position: 'left' }}
                                     dataKey='time' />
                                 <YAxis label={{ value: 'Values', dx: 15, angle: -90, position: 'left', dataKey: 'value' }} />
                                 <Tooltip />
@@ -77,10 +77,7 @@ const AirParameters = () => {
     }
 
     return (
-
         checkForData()
-
-
     )
 }
 

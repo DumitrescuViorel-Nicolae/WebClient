@@ -33,7 +33,7 @@ function Temperature() {
 
         <Grid item xs={12} sm={12} md={12} lg={6}>
           <div className='flex flex-col justify-center items-center '>
-            <div className='my-5'>Temperature</div>
+            <div className='my-5'>Temperature[°C]</div>
             <LineChart
               width={900}
               height={700}
@@ -46,7 +46,7 @@ function Temperature() {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis label={{ value: 'Time', dy: 20, position: 'left' }} dataKey='time' />
+              <XAxis label={{ value: 'Time [hh:mm:ss]', dy: 20,dx: 60, position: 'left' }} dataKey='time' />
               <YAxis label={{ value: 'Value', dx: 15, angle: -90, position: 'left', dataKey: 'value' }} />
               <Tooltip />
               <Legend />
