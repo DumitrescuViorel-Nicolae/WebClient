@@ -45,7 +45,6 @@ const WeatherComponent = () => {
         //eslint-disable-next-line
     }, [])
 
-
     // to add a component to return icons for weather
     // to add a component of predictions
 

@@ -15,23 +15,14 @@ import altitude from '../../media/altitude.jpg'
 import iaq from '../../media/iaq.jpg'
 import dashboard from '../../media/dashboard.jpg'
 
-
-import axiosClient from '../../shared/axiosClient';
-import { READINGS } from '../../shared/endpoints'
 import DashboardCards from './DashboardCards';
 import { Box } from '@mui/system';
+import { getReadings } from '../../shared/sharedFunctions';
 
 function DashboardMain() {
 
   const [readings, setReadings] = useState(null);
   const [loading, setLoading] = useState(false);
-
-
-  function getReadings() {
-    axiosClient.get(READINGS).then(res => {
-      setReadings(res.data); setLoading(false);
-    });
-  }
 
 
   const first3Readings = readings?.slice(0, 3);
@@ -58,7 +49,7 @@ function DashboardMain() {
   }
 
   useEffect(() => {
-    getReadings();
+    getReadings(setReadings)
     // eslint-disable-next-line
   }, [])
 

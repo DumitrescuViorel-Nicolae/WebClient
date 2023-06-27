@@ -37,8 +37,8 @@ const AirQuality = () => {
     }, [])
 
     const iaq = data.filter(item => item.type === 'iaq');
-
-    function isValueInRange(value, range) {
+    function isValueInRange(range) {
+        const value = iaq[iaq.length-1]?.value;
         const [lowerBound, upperBound] = range.split('-').map(Number);
         return value >= lowerBound && value <= upperBound;
     }
@@ -96,7 +96,7 @@ const AirQuality = () => {
                             {indexTableData?.map((row, index) => (
                                 <TableRow key={index}>
                                     {Object.values(row).map((value, index) => (
-                                        <TableCell style={{ color: isValueInRange(iaq[index]?.value, row.range) ? colorRange(row.range) : 'inherit' }} key={index}>{value}</TableCell>
+                                        <TableCell style={{ color: isValueInRange(row.range) ? colorRange(row.range) : 'inherit' }} key={index}>{value}</TableCell>
                                     ))}
                                 </TableRow>
                             ))}

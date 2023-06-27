@@ -29,7 +29,6 @@ function App() {
             <Route path='parameters' element={<AirParameters/>} />
             <Route path='reports' element={<Reports/>} />
           </Routes>
-
       </div>
     </ThemeProvider>
   );

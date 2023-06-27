@@ -16,7 +16,7 @@ const AirParameters = () => {
 
     const groupedData = data.reduce((acc, entry) => {
         const { type } = entry;
-        const {unit} = entry;
+        const { unit } = entry;
         const group = acc.find((group) => group.type === type);
         if (group) {
             group.values.push({ value: entry.value, time: entry.time });
@@ -25,6 +25,17 @@ const AirParameters = () => {
         }
         return acc;
     }, []);
+
+    const domainValueCalculate = (value) => {
+
+        let domain;
+        const upperLimit = parseInt(value) + 20;
+
+        if (value > 90) {
+            domain = [0, upperLimit]
+        }
+        return domain
+    }
 
     const checkForData = () => {
         if (data.length === 0) {
@@ -44,7 +55,7 @@ const AirParameters = () => {
                     {groupedData.map(item =>
                         <Grid key={item.type} item md={6} lg={4}>
                             <Typography align='center'>
-                                {item.type.charAt(0).toUpperCase() + item.type.slice(1)+` [${item.unit}]`}
+                                {item.type.charAt(0).toUpperCase() + item.type.slice(1) + ` [${item.unit}]`}
                             </Typography>
                             <LineChart
                                 style={{ margin: '0 auto' }}
@@ -56,15 +67,17 @@ const AirParameters = () => {
                                     top: 20,
                                     right: 10,
                                     left: 10,
-                                    bottom: 30,
+                                    bottom: 30
                                 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis label={{ value: 'Time [hh:mm:ss]', dy: 20, dx: 60, position: 'left' }}
-                                    dataKey='time' />
-                                <YAxis label={{ value: 'Values', dx: 15, angle: -90, position: 'left', dataKey: 'value' }} />
+                                <XAxis label={{ value: 'Time [hh:mm:ss]', dy: 30, dx: 60, position: 'left' }}
+                                    dataKey='time'  tickMargin={10} />
+                                <YAxis label={{ value: 'Values', dx: 25, dy: 20, angle: -90, position: 'left', dataKey: 'value' }}
+                                    domain={domainValueCalculate(Math.max(...item.values.map(item => item.value)))}
+                                />
                                 <Tooltip />
                                 <Legend />
-                                <Line type="monotone" dataKey='value' stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey='value' stroke="#8884d8" activeDot={{ r: 5 }} />
                             </LineChart>
                         </Grid>
                     )}

@@ -19,9 +19,7 @@ function Temperature() {
     getReadings(setTableData);
   }, [])
 
-
-  const temperature = tableData.filter(item => item.type === 'temperature');
-
+  const temperature = tableData?.filter(item => item.type === 'temperature');
   const acitonateButton = async () => {
     await axios.post(`${CONTROL_SERVO}?position=${position}`);
   }
