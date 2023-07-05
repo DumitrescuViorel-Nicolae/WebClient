@@ -54,7 +54,7 @@ const AirParameters = () => {
                 <Grid container className='my-28'>
                     {groupedData.map(item =>
                         <Grid key={item.type} item md={6} lg={4}>
-                            <Typography align='center'>
+                            <Typography fontWeight={'bold'} align='center'>
                                 {item.type.charAt(0).toUpperCase() + item.type.slice(1) + ` [${item.unit}]`}
                             </Typography>
                             <LineChart
@@ -69,16 +69,37 @@ const AirParameters = () => {
                                     left: 10,
                                     bottom: 30
                                 }}>
+                                {/* CartesianGrid renders the grid lines */}
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis label={{ value: 'Time [hh:mm:ss]', dy: 30, dx: 60, position: 'left' }}
-                                    dataKey='time'  tickMargin={10} />
-                                <YAxis label={{ value: 'Values', dx: 25, dy: 20, angle: -90, position: 'left', dataKey: 'value' }}
-                                    domain={domainValueCalculate(Math.max(...item.values.map(item => item.value)))}
+
+                                {/* XAxis renders the X axis */}
+                                <XAxis
+                                    label={{ value: 'Time [hh:mm:ss]', dy: 30, dx: 65, position: 'left', fontWeight: 'bold' }} // Set label font weight
+                                    dataKey='time'
+                                    tickMargin={10}
+                                    axisLine={{ stroke: 'black', strokeWidth: 1 }}  // Set axis line color and width
+                                    tick={{ stroke: 'black', strokeWidth: 0.25, fontWeight: 'bold' }}  // Set tick line color, width, and font weight
                                 />
+
+                                {/* YAxis renders the Y axis */}
+                                <YAxis
+                                    label={{ value: 'Values', dx: 25, dy: 20, angle: -90, position: 'left', dataKey: 'value', fontWeight: 'bold' }} // Set label font weight
+                                    domain={domainValueCalculate(Math.max(...item.values.map(item => item.value)))}
+                                    axisLine={{ stroke: 'black', strokeWidth: 1 }}  // Set axis line color and width
+                                    tick={{ stroke: 'black', strokeWidth: 0.25, fontWeight: 'bold' }}  // Set tick line color, width, and font weight
+                                />
+
+                                {/* Tooltip displays additional information on hover */}
                                 <Tooltip />
+
+                                {/* Legend displays a legend for the chart */}
                                 <Legend />
-                                <Line type="monotone" dataKey='value' stroke="#8884d8" activeDot={{ r: 5 }} />
+
+                                {/* Line represents the data as a line */}
+                                <Line type="monotone" dataKey='value' stroke="#8884d8" strokeWidth={2} activeDot={{ r: 5 }} />
                             </LineChart>
+
+
                         </Grid>
                     )}
                     <Grid item>

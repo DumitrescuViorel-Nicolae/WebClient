@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom';
 import Navigation from './Navigation';
 import { Button } from '@mui/material';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
 
   const drawerWidth = 240;
   const theme = useTheme();
@@ -85,6 +85,7 @@ export default function Dashboard() {
               Remote Interface
             </Typography>
           </Link>
+          <Button onClick={e =>props.func(e.currentTarget.textContent)}>{props.mode}</Button>
           <Box sx={{ marginLeft: 'auto' }}>
             {!userProfile ? (<GoogleLogin onSuccess={login} />) :
 

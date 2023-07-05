@@ -3,14 +3,23 @@ import { Button, Tooltip, Typography } from '@mui/material'
 
 import React, { useEffect, useState } from 'react'
 import { getReadings } from '../../shared/sharedFunctions';
+import axiosClient from '../../shared/axiosClient';
+import { CHECKER_SIMULATE } from '../../shared/endpoints';
 
 const Reports = () => {
 
   const [data, setData] = useState([]);
+  const [reportText, setReportText] = useState('');
+  const [reportNr, setReportNr] = useState(0);
   useEffect(() => {
     getReadings(setData);
     //eslint-disable-next-line
   }, [])
+
+  const handleSimulate = async () => {
+    await axiosClient.post(CHECKER_SIMULATE).then((report) => report.data !== '' ? setReportText(report.data) : null);
+    setReportNr(reportNr => reportNr + 1)
+  }
 
 
   return (
@@ -19,14 +28,13 @@ const Reports = () => {
       alignItems={'center'}
       gap={2}
       flexDirection={'column'}>
-      <div>Generated report placeholder</div>
-      <div>The report shall contain the details(which parameter increased), <br /> the action taken and a graph will be displayed dynamically to see the increase</div>
+      <div>Report {reportNr}</div>
+      <div>{reportText}</div>
       <Tooltip title={<Typography textAlign={'center'}>
         Simulates a dangerous increase <br />
-        Initiates the procedure
-        Generates Report and sends alerts
+        Initiates servo procedure and makes a report
       </Typography>}>
-        <Button variant='outlined'>Simulate</Button>
+        <Button onClick={handleSimulate} variant='outlined'>Simulate</Button>
       </Tooltip>
 
     </Box>

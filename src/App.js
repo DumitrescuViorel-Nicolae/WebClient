@@ -12,22 +12,33 @@ import Reports from './components/IndividualPages/Reports';
 
 function App() {
 
+  const [mode, setMode] = React.useState('dark')
+
   const darkTheme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: mode,
     },
   });
+
+  const onClick = (switchMode) => {
+    if(switchMode === 'light'){
+      setMode('dark')
+    }else{
+      setMode('light')
+    }
+  } 
+
 
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
-          <Dashboard />
+          <Dashboard mode = {mode} func ={onClick} />
           <Routes>
-            <Route path='/' element={<DashboardMain />} />
-            <Route path='temperature' element={<Temperature />} />
-            <Route path='airQuality' element={<AirQuality/>}/>
-            <Route path='parameters' element={<AirParameters/>} />
-            <Route path='reports' element={<Reports/>} />
+            <Route exact path='/' element={<DashboardMain />} />
+            <Route exact path='temperature' element={<Temperature />} />
+            <Route exact path='airQuality' element={<AirQuality/>}/>
+            <Route exact path='parameters' element={<AirParameters/>} />
+            <Route exact path='reports' element={<Reports/>} />
           </Routes>
       </div>
     </ThemeProvider>

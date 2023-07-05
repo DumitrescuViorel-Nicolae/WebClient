@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Box } from '@mui/system';
 import WeatherComponent from './WeatherComponent';
 import { CONTROL_SERVO } from '../../shared/endpoints';
+import axiosClient from '../../shared/axiosClient';
 
 function Temperature() {
 
@@ -21,7 +22,7 @@ function Temperature() {
 
   const temperature = tableData?.filter(item => item.type === 'temperature');
   const acitonateButton = async () => {
-    await axios.post(`${CONTROL_SERVO}?position=${position}`);
+    await axiosClient.post(`${CONTROL_SERVO}?position=${position}`);
   }
 
   return (

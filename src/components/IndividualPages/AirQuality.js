@@ -38,7 +38,7 @@ const AirQuality = () => {
 
     const iaq = data.filter(item => item.type === 'iaq');
     function isValueInRange(range) {
-        const value = iaq[iaq.length-1]?.value;
+        const value = 49;
         const [lowerBound, upperBound] = range.split('-').map(Number);
         return value >= lowerBound && value <= upperBound;
     }
@@ -73,8 +73,8 @@ const AirQuality = () => {
             <div className='flex justify-around my-40' >
                 <Card style={cardStyle}>
                     <CardContent style={contentStyle}>
-                        <Typography fontSize={'5rem'} fontWeight={'100'} variant="h5" component="div">
-                            {iaq[iaq.length - 1]?.value}
+                        <Typography fontSize={'5rem'} color={"text.primary"} fontWeight={'100'} variant="h5" component="div">
+                            {49}
                         </Typography>
                         <Typography variant="h5" color="text.secondary" component="div">
                             Points

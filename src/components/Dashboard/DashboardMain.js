@@ -17,7 +17,8 @@ import dashboard from '../../media/dashboard.jpg'
 
 import DashboardCards from './DashboardCards';
 import { Box } from '@mui/system';
-import { getReadings } from '../../shared/sharedFunctions';
+import { READINGS } from '../../shared/endpoints';
+import axiosClient from '../../shared/axiosClient';
 
 function DashboardMain() {
 
@@ -48,8 +49,14 @@ function DashboardMain() {
     }
   }
 
+  function getReadings() {
+    axiosClient.get(READINGS).then(res => {
+      setReadings(res.data); setLoading(false);
+    });
+  }
+
   useEffect(() => {
-    getReadings(setReadings)
+    getReadings()
     // eslint-disable-next-line
   }, [])
 
@@ -72,7 +79,7 @@ function DashboardMain() {
         <Grid className='my-20' container spacing={5} direction="row" alignItems="center" justifyContent="center">
 
           <Grid item xs={12}>
-            <Typography style={{fontFamily:"Google Sans", color: "#e4e6eb", letterSpacing:'0.1rem'}}
+            <Typography style={{fontFamily:"Google Sans", color: "text.primary", letterSpacing:'0.1rem'}}
               marginLeft='20rem' marginBottom='0' textAlign={'left'} variant='h4' gutterBottom>
               Air parameters
             </Typography>
@@ -86,7 +93,7 @@ function DashboardMain() {
           )}
 
           <Grid item xs={12}>
-          <Typography marginTop='5rem' style={{fontFamily:"Google Sans", color: "#e4e6eb", letterSpacing:'0.1rem'}}
+          <Typography marginTop='5rem' style={{fontFamily:"Google Sans", color: "text.primary", letterSpacing:'0.1rem'}}
               marginLeft='20rem' marginBottom='0' textAlign={'left'} variant='h4' gutterBottom>
               Air quality
             </Typography>
